@@ -3,8 +3,11 @@ const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-// 引用路由器
+
 const routes = require('./routes')
+
+// 載入設定檔，要寫在 express-session 以後
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 
@@ -26,6 +29,8 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+usePassport(app)
 
 app.use(express.static('public'))
 
