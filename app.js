@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const mongoose = require('mongoose')
+
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 //const Restaurant = require('./models/restaurant')
@@ -9,18 +9,13 @@ const methodOverride = require('method-override')
 // 引用路由器
 const routes = require('./routes')
 
-const db = mongoose.connection
+
+require('./config/mongoose')
 
 
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 
 
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -33,28 +28,7 @@ app.use(methodOverride('_method'))
 app.use(routes)
 
 
-// 首頁,瀏覽全部餐廳
-// 搬走了
 
-
-// 新增餐廳(如果把這段程式碼擺在/restaurants/:id 後面, new 會被當作是id進而找不到此路由)
-// 搬走了
-
-
-// 瀏覽特定餐廳
-// 搬走了
-
-
-// 搜尋餐廳
-// 搬走了
-
-
-// 修改特定餐廳
-// 搬走了
-
-
-// 刪除特定餐廳
-// 搬走了
 
 
 app.listen(3000, () => {
